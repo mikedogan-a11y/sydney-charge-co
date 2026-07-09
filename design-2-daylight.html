@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sydney Charge Co — Design 2: Daylight</title>
+<style>
+  :root{
+    --paper:#FAFBFD;
+    --panel:#FFFFFF;
+    --wash:#EDF4FE;
+    --ink:#0E1B2C;
+    --muted:#5C6B80;
+    --line:#E3E9F2;
+    --accent:#0B6BF2;
+    --accent-dark:#0851B8;
+    --body:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(250,251,253,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+  .nav{display:flex;align-items:center;gap:26px;height:70px}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:38px;height:38px;border-radius:11px;background:var(--accent);display:grid;place-items:center;flex:none}
+  .brand-name{font-weight:700;font-size:17.5px;letter-spacing:-.01em}
+  .brand-name span{color:var(--accent)}
+  nav.links{margin-left:auto;display:flex;gap:22px}
+  nav.links a{color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:600}
+  nav.links a:hover{color:var(--ink)}
+  .btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 24px;border-radius:999px;border:0;cursor:pointer}
+  .btn:hover{background:var(--accent-dark)}
+  .btn.ghost{background:none;color:var(--ink);border:1.5px solid var(--line)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent);background:none}
+  @media (max-width:820px){nav.links{display:none}}
+
+  .hero{padding:96px 0 72px;text-align:center;background:
+    radial-gradient(640px 300px at 50% -80px, rgba(11,107,242,.09), transparent 70%), var(--paper)}
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-size:13.5px;font-weight:600;color:var(--muted)}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  h1{font-size:clamp(38px,5.4vw,60px);line-height:1.06;letter-spacing:-.025em;font-weight:700;margin:26px auto 0;max-width:17ch;text-wrap:balance}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{color:var(--muted);font-size:18.5px;max-width:54ch;margin:20px auto 0}
+  .hero-cta{display:flex;gap:12px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:760px;margin:64px auto 0}
+  @media (max-width:640px){.stats{grid-template-columns:1fr}}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 18px}
+  .stat b{display:block;font-size:26px;letter-spacing:-.02em;color:var(--accent);font-variant-numeric:tabular-nums}
+  .stat span{font-size:13.5px;color:var(--muted);font-weight:600}
+
+  section{padding:80px 0}
+  section.alt{background:var(--wash)}
+  .kicker{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+  h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;line-height:1.12;font-weight:700;text-wrap:balance}
+  .section-intro{color:var(--muted);max-width:60ch;margin-top:12px}
+
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  @media (max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.svc-grid{grid-template-columns:1fr}}
+  .svc{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px}
+  .svc .icon{width:44px;height:44px;border-radius:12px;background:var(--wash);display:grid;place-items:center;margin-bottom:14px}
+  .svc h3{font-size:17px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+  .svc p{color:var(--muted);font-size:14.5px}
+  .svc.flag{border:1.5px solid var(--accent);box-shadow:0 8px 28px rgba(11,107,242,.10)}
+  .flag-chip{display:inline-block;font-size:11.5px;font-weight:700;color:var(--accent);background:var(--wash);border-radius:999px;padding:3px 10px;margin-bottom:12px}
+
+  .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+  @media (max-width:820px){.team-grid{grid-template-columns:1fr}}
+  .member{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px 26px}
+  .member .avatar{width:54px;height:54px;border-radius:50%;background:var(--wash);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:20px;margin-bottom:14px}
+  .member h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+  .member .role{font-size:13px;font-weight:600;color:var(--accent);margin:3px 0 10px}
+  .member p{color:var(--muted);font-size:14.5px}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;counter-reset:s}
+  @media (max-width:820px){.steps{grid-template-columns:1fr}}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px}
+  .step::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:15px;margin-bottom:14px}
+  .step h3{font-size:16.5px;font-weight:700;margin-bottom:6px}
+  .step p{color:var(--muted);font-size:14.5px}
+
+  .areas{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+  @media (max-width:820px){.areas{grid-template-columns:1fr}}
+  .area{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .area h3{font-size:15.5px;font-weight:700;color:var(--accent);margin-bottom:8px}
+  .area p{color:var(--muted);font-size:14.5px}
+
+  .faq{margin-top:36px;display:grid;gap:10px;max-width:820px}
+  details{background:var(--panel);border:1px solid var(--line);border-radius:14px}
+  summary{cursor:pointer;list-style:none;padding:17px 22px;font-weight:700;font-size:15.5px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--accent);font-size:20px;flex:none}
+  details[open] summary::after{content:"–"}
+  details .a{padding:0 22px 18px;color:var(--muted);font-size:15px;max-width:68ch}
+
+  .quote-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;margin-top:40px;align-items:start}
+  @media (max-width:820px){.quote-grid{grid-template-columns:1fr}}
+  form{display:grid;gap:13px}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  @media (max-width:540px){.frow{grid-template-columns:1fr}}
+  label{font-size:13px;font-weight:600;color:var(--ink);display:grid;gap:6px}
+  input,select,textarea{background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--ink);font-family:var(--body);font-size:15px;padding:12px 14px;width:100%}
+  textarea{min-height:104px;resize:vertical}
+  .contact-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}
+  .contact-card h3{font-size:17px;font-weight:700;margin-bottom:12px}
+  .contact-line{padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+  .contact-line b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .contact-line a{color:var(--ink);text-decoration:none;font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;background:var(--panel)}
+  .foot{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;color:var(--muted);font-size:13.5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Sydney Charge Co home">
+      <span class="mark"><svg width="20" height="20" viewBox="0 0 22 22" aria-hidden="true"><path d="M12.5 2 L5 13 L10 13 L8.8 20 L17 9 L11.6 9 Z" fill="#fff"/></svg></span>
+      <span class="brand-name">Sydney <span>Charge</span> Co</span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#process">How it works</a>
+      <a href="#team">Team</a>
+      <a href="#areas">Areas</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn" href="#quote">Get a quote</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap">
+      <span class="pill"><span class="dot"></span>Licensed Sydney electricians · EV charging specialists</span>
+      <h1>The cleanest way to <em>charge at home.</em></h1>
+      <p class="lede">Sydney Charge Co installs Tesla Wall Connectors, Zappi, Wallbox and every major home EV charger. Fixed-price quotes from photos, certified work, no surprises.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#quote">Get a fixed-price quote</a>
+        <a class="btn ghost" href="#services">Explore services</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>35+ yrs</b><span>Combined time on the tools</span></div>
+        <div class="stat"><b>3–5 hrs</b><span>Typical installation time</span></div>
+        <div class="stat"><b>100%</b><span>Certified, licensed and insured</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <p class="kicker">Services</p>
+      <h2>EV charging first, full electrical capability behind it</h2>
+      <p class="section-intro">Every install is done by a licensed electrician, so switchboard capacity, circuit protection and compliance are handled properly, not outsourced.</p>
+      <div class="svc-grid">
+        <div class="svc flag">
+          <span class="flag-chip">Most popular</span>
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M12.5 2 L5 13 L10 13 L8.8 20 L17 9 L11.6 9 Z" fill="#0B6BF2"/></svg></div>
+          <h3>Home EV charger installation</h3>
+          <p>Supply and install, sized to your switchboard and driving habits. Single or three-phase, tidy cable runs, done in a day.</p>
+        </div>
+        <div class="svc flag">
+          <span class="flag-chip">Tesla owners</span>
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="6" y="2.5" width="10" height="17" rx="3" fill="none" stroke="#0B6BF2" stroke-width="1.6"/><path d="M12 6.5 L9.5 11.5 L11.5 11.5 L10.5 15.5 L13.5 10.5 L11.7 10.5 Z" fill="#0B6BF2"/></svg></div>
+          <h3>Tesla Wall Connector installation</h3>
+          <p>Installed and configured for your Model 3, Y, S or X, including charge scheduling for off-peak rates.</p>
+        </div>
+        <div class="svc">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="3" y="3" width="16" height="16" rx="2" fill="none" stroke="#0B6BF2" stroke-width="1.6"/><path d="M7 7 h8 M7 11 h8 M7 15 h5" stroke="#0B6BF2" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <h3>Switchboard upgrades</h3>
+          <p>Older board? We upgrade it, add a dedicated EV circuit and load management so you charge safely at full speed.</p>
+        </div>
+        <div class="svc">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect x="3" y="8" width="7" height="11" fill="none" stroke="#0B6BF2" stroke-width="1.5"/><rect x="12" y="3" width="7" height="16" fill="none" stroke="#0B6BF2" stroke-width="1.5"/></svg></div>
+          <h3>Commercial &amp; strata charging</h3>
+          <p>Load-managed multi-bay systems for apartments, offices and fleets, with metering and approvals handled.</p>
+        </div>
+        <div class="svc">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 18 L4 9 L11 3.5 L18 9 L18 18 Z" fill="none" stroke="#0B6BF2" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+          <h3>General electrical</h3>
+          <p>Lighting, power, repairs and renovations, delivered to the same standard as our charging work. 24/7 emergency.</p>
+        </div>
+        <div class="svc">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="4" fill="none" stroke="#0B6BF2" stroke-width="1.6"/><path d="M11 2.5 v2.5 M11 17 v2.5 M2.5 11 h2.5 M17 11 h2.5" stroke="#0B6BF2" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <h3>Solar &amp; battery ready</h3>
+          <p>Every install is wired with the future in mind, so adding solar or a home battery later is straightforward.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="process">
+    <div class="wrap">
+      <p class="kicker">How it works</p>
+      <h2>From quote to charging in three steps</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>Send photos, get a quote</h3>
+          <p>Text or email photos of your switchboard and parking spot. We send a fixed-price quote, usually same day.</p>
+        </div>
+        <div class="step">
+          <h3>Installation day</h3>
+          <p>Most installs take three to five hours: dedicated circuit, charger mounted and commissioned, app connected.</p>
+        </div>
+        <div class="step">
+          <h3>Certified &amp; charging</h3>
+          <p>Certificate of compliance, a walkthrough of off-peak charge scheduling, and our workmanship guarantee.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <p class="kicker">Your electricians</p>
+      <h2>Owner-run, with 35+ combined years on the tools</h2>
+      <p class="section-intro">No call centres, no subcontractors. The electrician who quotes your install is the one who does it.</p>
+      <div class="team-grid">
+        <div class="member">
+          <div class="avatar">K</div>
+          <h3>Kaan</h3>
+          <p class="role">Co-founder · Licensed electrician</p>
+          <p>Started his apprenticeship at 16 and has spent more than 20 years on the tools across residential, commercial and industrial work. If it's wired, he's worked on it — and that experience is what decides how your charger connects to your switchboard.</p>
+        </div>
+        <div class="member">
+          <div class="avatar">K</div>
+          <h3>Kubz</h3>
+          <p class="role">Co-founder · Licensed electrician</p>
+          <p>15 years on the tools across residential and commercial work. Kubz plans the tidy cable runs and clean finishes customers notice, and handles the compliance details they never have to think about.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="areas">
+    <div class="wrap">
+      <p class="kicker">Service areas</p>
+      <h2>Across Sydney, wherever you park</h2>
+      <div class="areas">
+        <div class="area"><h3>Eastern Suburbs</h3><p>Vaucluse, Bellevue Hill, Double Bay, Bondi, Randwick, Coogee, Maroubra and surrounds.</p></div>
+        <div class="area"><h3>North Shore &amp; Beaches</h3><p>Mosman, Neutral Bay, Chatswood, Lane Cove, St Ives, Manly, Dee Why, Mona Vale and surrounds.</p></div>
+        <div class="area"><h3>Inner West &amp; Greater Sydney</h3><p>Balmain, Drummoyne, Strathfield, Ryde, Castle Hill, Sutherland, Cronulla and beyond.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="kicker">FAQ</p>
+      <h2>Common questions</h2>
+      <div class="faq">
+        <details>
+          <summary>How much does EV charger installation cost in Sydney?</summary>
+          <div class="a">Most standard home installs fall within a predictable fixed-price range; cable distance, switchboard condition and single vs three-phase supply are the main variables. Send photos and we'll give you an exact fixed price up front.</div>
+        </details>
+        <details>
+          <summary>Do I need three-phase power?</summary>
+          <div class="a">No. A single-phase 7kW charger fully recharges most EVs overnight. If you have three-phase, we'll tell you honestly whether your car can actually use the extra speed before you pay for it.</div>
+        </details>
+        <details>
+          <summary>Will my switchboard need an upgrade?</summary>
+          <div class="a">We assess this from your photos before quoting. If an upgrade is needed it's priced up front, and it improves the safety of your whole home, not just the charger circuit.</div>
+        </details>
+        <details>
+          <summary>Can you install a charger I've already bought?</summary>
+          <div class="a">Yes, including Tesla Wall Connectors bought direct from Tesla, provided the unit is compliant for Australia. We confirm compatibility from the model number before booking.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt" id="quote">
+    <div class="wrap">
+      <p class="kicker">Get a quote</p>
+      <h2>Fixed price, from photos, usually same day</h2>
+      <div class="quote-grid">
+        <form id="quoteForm">
+          <div class="frow">
+            <label>Name<input type="text" name="name" autocomplete="name" required></label>
+            <label>Suburb<input type="text" name="suburb" required></label>
+          </div>
+          <div class="frow">
+            <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+            <label>Email<input type="email" name="email" autocomplete="email" required></label>
+          </div>
+          <label>What do you need?
+            <select name="service">
+              <option>EV charger installation (home)</option>
+              <option>Tesla Wall Connector installation</option>
+              <option>Switchboard upgrade</option>
+              <option>Commercial / strata EV charging</option>
+              <option>General electrical work</option>
+            </select>
+          </label>
+          <label>Tell us about the job<textarea name="message" placeholder="e.g. Model Y arriving next month, charger on the garage wall about 8m from the switchboard"></textarea></label>
+          <button class="btn" type="submit">Send quote request</button>
+        </form>
+        <div class="contact-card">
+          <h3>Prefer to talk?</h3>
+          <div class="contact-line"><b>Phone</b><a href="tel:+61410123456">0410 123 456</a></div>
+          <div class="contact-line"><b>Email</b><a href="mailto:info@sydneychargeco.com.au">info@sydneychargeco.com.au</a></div>
+          <div class="contact-line"><b>Emergency</b>24/7 emergency electrical service</div>
+          <div class="contact-line"><b>Service area</b>Sydney metro, NSW</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span><strong style="color:var(--ink)">Sydney Charge Co</strong> · Connected. Protected. Powered.</span>
+    <span>0410 123 456 · info@sydneychargeco.com.au · Sydney, NSW</span>
+    <span>© 2026 · NSW Licence [XXXXXXC] · ABN [XX XXX XXX XXX]</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('quoteForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var f = e.target;
+    var body = 'Name: ' + f.name.value + '\nSuburb: ' + f.suburb.value + '\nPhone: ' + f.phone.value +
+      '\nEmail: ' + f.email.value + '\nService: ' + f.service.value + '\n\n' + f.message.value;
+    window.location.href = 'mailto:info@sydneychargeco.com.au?subject=' +
+      encodeURIComponent('Quote request - ' + f.suburb.value) + '&body=' + encodeURIComponent(body);
+  });
+</script>
+
+</body>
+</html>
